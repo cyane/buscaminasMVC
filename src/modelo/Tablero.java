@@ -20,9 +20,27 @@ public class Tablero implements AccionesTablero {
 	
 	@Override
 	public void calcularMinasAlrededor() {
-		// TODO recorrer el panel donde hay mina y colocar un incremento
-		//de una mina alrededor de ella
-		
+		for (int i = 0; i < casillas.length; i++) {
+			for (int j = 0; j < casillas[i].length; j++) {
+				if(casillas[i][j].isMina()){
+					for (int x = i-1; x < i+1; x++) {
+						for (int y = j-1; y < j+1; y++) {
+							if (comprobacion(i,j,x,y)) {	
+								this.casillas[x][y].incrementar();
+							}
+						}
+					}
+				}
+			}
+		}	
+	}
+
+
+	private boolean comprobacion(int i, int j, int x, int y) {
+		if (i!=x&&j!=y&&x>=0&&x<casillas.length&&y>=0&&y<casillas[x].length) {
+			return true;
+		}
+		return false;
 	}
 
 
@@ -39,6 +57,11 @@ public class Tablero implements AccionesTablero {
 		//cual es dentro del tablero) develada todas las de alrededor y sucesivas que tengan
 		//un valor de 0 minas alrededor
 		return false;
+	}
+
+
+	public boolean comprobarMinada(int[] posicion) {
+		return casillas[posicion[0]][posicion[1]].isMina();
 	}
 	
 	

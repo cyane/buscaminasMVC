@@ -25,7 +25,6 @@ public class Casilla {
 	/**
 	 * si en la casilla hay una mina retorna false si en la casilla no hay mina
 	 * pone la mina true y retorna true
-	 * 
 	 * @return
 	 */
 	public boolean colocaMina() {
@@ -59,6 +58,11 @@ public class Casilla {
 			marcada = true;
 		}
 		return marcada;
+	}
+
+	public void incrementar() {
+		this.alrededor++;
+		
 	}
 
 }
