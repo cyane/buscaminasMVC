@@ -19,7 +19,7 @@ public class ParaBuscaminasUI extends BuscaminasUI{
 	
 	public ParaBuscaminasUI() {
 	super();
-	btnNewButton.addActionListener(listener);
+	btnTest.addActionListener(listener);
 	}
 
 	public void crearTablero() {
