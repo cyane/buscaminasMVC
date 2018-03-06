@@ -58,7 +58,7 @@ public class ParaBuscaminasUI extends BuscaminasUI{
 		assert densidad!=null;
 		this.densidad = densidad;
 	}
-
+ 
 	public void click(String name) {
 		System.out.println(name);
 		

@@ -5,6 +5,10 @@ public class Casilla {
 	private byte alrededor = 0;
 	private boolean velada = true;
 	private boolean marcada = false;
+	private Coordenada coord;
+	public Casilla(int x, int y) {
+		this.coord = new Coordenada(x, y);
+	}
 
 	public boolean isVelada() {
 		return velada;

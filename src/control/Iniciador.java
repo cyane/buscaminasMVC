@@ -78,11 +78,9 @@ public class Iniciador implements Iniciable {
 		do{
 		int[] posicion=sortearMina();
 		if (!this.tablero.comprobarMinada(posicion)) {
-			System.out.println("entra");
 			boolean retorno = this.tablero.colocarMina(posicion[0], posicion[1]);
 			contador--;
 		}else{
-			System.out.println("no entra");
 		}
 		}while(contador>0);
 		// no se debe acceder directamente a las propiedades de otra clase
@@ -105,6 +103,7 @@ public class Iniciador implements Iniciable {
 		crearTablero();
 		colocarMinas();
 		this.tablero.calcularMinasAlrededor();
+		tablero.pintarMatriz();
 		return this.tablero;
 	}
 

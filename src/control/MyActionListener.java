@@ -26,7 +26,7 @@ public class MyActionListener implements ActionListener, MouseListener  {
 	public void mouseClicked(MouseEvent e) {
 		int boton=e.getButton();
 		switch (boton){
-		case 1:System.out.println("izqui");;break;
+		case 1:System.out.println("izqui");break;
 		case 2:System.out.println("soy el boton central");break;
 		case 3:System.out.println("soy el boton dcha");break;
 		default:System.out.println("soy el boton no lo tengo claro");break;

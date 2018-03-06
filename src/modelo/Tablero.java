@@ -9,10 +9,10 @@ public class Tablero implements AccionesTablero {
 		super();
 		assert filas>0&&columnas>0:"parametros incorrectos";
 		// TODO Auto-generated constructor stub
-		casillas=new Casilla[filas][columnas];
-		for (int i = 0; i < casillas.length; i++) {
-			for (int j = 0; j < casillas[i].length; j++) {
-				casillas[i][j]=new Casilla();
+		this.casillas=new Casilla[filas][columnas];
+		for (int i = 0; i < this.casillas.length; i++) {
+			for (int j = 0; j < this.casillas[i].length; j++) {
+				this.casillas[i][j]=new Casilla(i,j);
 			}
 		}
 	}
@@ -20,13 +20,16 @@ public class Tablero implements AccionesTablero {
 	
 	@Override
 	public void calcularMinasAlrededor() {
-		for (int i = 0; i < casillas.length; i++) {
-			for (int j = 0; j < casillas[i].length; j++) {
-				if(casillas[i][j].isMina()){
-					for (int x = i-1; x < i+1; x++) {
-						for (int y = j-1; y < j+1; y++) {
-							if (comprobacion(i,j,x,y)) {	
+		for (int i = 0; i < this.casillas.length; i++) {
+			for (int j = 0; j < this.casillas[i].length; j++) {
+				System.out.println(i+""+j);
+				if(this.casillas[i][j].isMina()){
+					for (int x = i-1; x < i+2; x++) {
+						for (int y = j-1; y < j+2; y++) {
+							if (comprobacion(i,j,x,y)) {
+								if(!this.casillas[x][y].isMina()){
 								this.casillas[x][y].incrementar();
+								}
 							}
 						}
 					}
@@ -37,7 +40,7 @@ public class Tablero implements AccionesTablero {
 
 
 	private boolean comprobacion(int i, int j, int x, int y) {
-		if (i!=x&&j!=y&&x>=0&&x<casillas.length&&y>=0&&y<casillas[x].length) {
+		if ((i!=x||j!=y)&&x>=0&&x<=this.casillas.length&&y>=0&&y<=this.casillas[x].length) {
 			return true;
 		}
 		return false;
@@ -62,6 +65,23 @@ public class Tablero implements AccionesTablero {
 
 	public boolean comprobarMinada(int[] posicion) {
 		return casillas[posicion[0]][posicion[1]].isMina();
+	}
+
+
+	public void pintarMatriz() {
+		System.out.println("entra en pintar matriz");
+		for (int i = 0; i < this.casillas.length; i++) {
+			for (int j = 0; j < this.casillas[i].length; j++) {
+				if (this.casillas[i][j].isMina()) {
+					System.out.print(" M");
+				}else{
+					System.out.print(" "+this.casillas[i][j].getAlrededor());
+				}
+				
+				}
+			System.out.println();
+		}
+		
 	}
 	
 	
