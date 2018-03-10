@@ -2,8 +2,11 @@ package vista;
 
 import javax.swing.JPanel;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -20,12 +23,11 @@ public class Botonera extends JPanel {
 	 * Create the panel.
 	 */
 	public Botonera(int filas, int columnas,int ladoBoton) {
-		int x=5,y=5;
+		int x=0,y=0;
 		this.ladoBoton=ladoBoton;
 		this.anchoPanel=ladoBoton*columnas;
 		this.altoPanel=ladoBoton*filas;
-		setLayout(null);
-		this.setBounds(x, y, this.anchoPanel, this.altoPanel);
+		this.setLayout(new GridLayout(filas, columnas, 0, 0));
 		iniciarBotonera(filas, columnas);
 	}
 
@@ -35,11 +37,10 @@ public class Botonera extends JPanel {
 		for (int i = 0; i < this.botones.length; i++) {
 			for (int j = 0; j < this.botones[i].length; j++) {
 				this.botones[i][j] = new JButton();
-				this.botones[i][j].setName(String.valueOf(i) + String.valueOf(j));
-				this.botones[i][j].setBounds(x, y, this.ladoBoton, this.ladoBoton);
+				this.botones[i][j].setName(String.valueOf(i) + "-" + String.valueOf(j));
+//				this.botones[i][j].setBounds(x, y, this.ladoBoton, this.ladoBoton);
 				this.botones[i][j].setBackground(Color.DARK_GRAY);
 				this.botones[i][j].setForeground(Color.ORANGE);
-				this.botones[i][j].setFont(new Font("Comic Sans MS", Font.BOLD, 30));
 				this.add(this.botones[i][j]);
 				x += this.ladoBoton;
 			}

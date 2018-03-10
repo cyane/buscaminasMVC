@@ -9,6 +9,7 @@ public class Iniciador implements Iniciable {
 	private Densidad densidad;
 	private byte filas, columnas;
 	private Tablero tablero;
+	private Tamanio tamanio;
 	
 	
 	public byte getFilas() {
@@ -36,31 +37,48 @@ public class Iniciador implements Iniciable {
 		assert densidad!=null;
 		this.densidad = densidad;
 	}
+	public void setTamanio(Tamanio tamanio) {
+		assert tamanio!=null;
+		this.tamanio = tamanio;
+	}
+
 
 
 	@Override
 	public void establecerDimensionTablero() {
-//		int valorDensidad=this.densidad.getValor();
 		switch (densidad) {
 		case facil:
-			this.minas=15;
-			this.filas=10;
-			this.columnas=filas;
+			this.minas=(byte) densidad.facil.getValor();
 			break;
 		case medio:
-			this.minas=40;
-			this.filas=16;
-			this.columnas=filas;
+			this.minas=(byte) densidad.medio.getValor();
 			break;
 		case dificil:
-			this.minas=99;
-			this.filas=16;
-			this.columnas=31;
+			this.minas=(byte) densidad.dificil.getValor();
 			break;
 		default:
 			break;
 		}
-		
+		int[] temp;
+		switch (tamanio) {
+		case pequenio:
+			temp= tamanio.pequenio.getValor();
+			this.filas=(byte) temp[0];
+			this.columnas=(byte) temp[1];
+			break;
+		case mediano:
+			temp= tamanio.mediano.getValor();
+			this.filas=(byte) temp[0];
+			this.columnas=(byte) temp[1];
+			break;
+		case grande:
+			temp= tamanio.grande.getValor();
+			this.filas=(byte) temp[0];
+			this.columnas=(byte) temp[1];
+			break;
+		default:
+			break;
+		}
 	}
 
 	@Override
@@ -73,7 +91,6 @@ public class Iniciador implements Iniciable {
 	public void colocarMinas() {
 
 		assert this.tablero != null && minas > 0 : "fallo al definir el tablero y/o el numero de minas";
-		// TODO hay que hacer un sorteo y pedirle al tablero que la coloque
 		int contador=this.minas;
 		do{
 		int[] posicion=sortearMina();
@@ -88,7 +105,7 @@ public class Iniciador implements Iniciable {
 	}
 
 	private int[] sortearMina() {
-		int[] posicion={random(0,filas-1),random(0,columnas-1)};
+		int[] posicion={random(0,filas),random(0,columnas)};
 		return posicion;
 	}
 
@@ -96,15 +113,33 @@ public class Iniciador implements Iniciable {
 		return (int)Math.floor(Math.random()*(menor-(mayor))+(mayor));
 	}
 
-	public Tablero iniciarJuego(Byte minas, Densidad densidad) {
-		setMinas(minas);
-		setDensidad(densidad);
-		establecerDimensionTablero();
+	public Tablero iniciarJuego( Densidad densidad, Tamanio tamanio,boolean perso,int[] valores) {
+		if (perso) {
+			establecerValores(valores);
+		}else{
+			setDensidad(densidad);
+			setTamanio(tamanio);
+			establecerDimensionTablero();
+		}
 		crearTablero();
 		colocarMinas();
 		this.tablero.calcularMinasAlrededor();
 		tablero.pintarMatriz();
 		return this.tablero;
+	}
+
+	private void establecerValores(int[] valores) {
+		if (valores[1]<2||valores[2]<2) {
+			valores[1]=2;
+			valores[2]=2;
+		}
+		if (valores[0]>=valores[1]*valores[2]) {
+			valores[0]=(valores[1]*valores[2])/3;
+		}
+
+		this.minas=(byte) valores[0];
+		this.filas=(byte) valores[1];
+		this.columnas=(byte) valores[2];
 	}
 
 }

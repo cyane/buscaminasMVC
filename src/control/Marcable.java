@@ -1,6 +1,7 @@
 package control;
 
 import modelo.Casilla;
+import modelo.Coordenada;
 
 public interface Marcable {
 

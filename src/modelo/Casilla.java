@@ -5,10 +5,7 @@ public class Casilla {
 	private byte alrededor = 0;
 	private boolean velada = true;
 	private boolean marcada = false;
-	private Coordenada coord;
-	public Casilla(int x, int y) {
-		this.coord = new Coordenada(x, y);
-	}
+
 
 	public boolean isVelada() {
 		return velada;
@@ -32,6 +29,7 @@ public class Casilla {
 	 * @return
 	 */
 	public boolean colocaMina() {
+		this.alrededor=10;
 		boolean retorno = false;
 		if (!mina) {
 			mina = true;
@@ -59,8 +57,8 @@ public class Casilla {
 	public boolean marcaCasilla() {
 		if (this.isVelada()) {
 			this.setMarcada(!this.isMarcada());
-			marcada = true;
 		}
+		System.out.print("casilla " +this.marcada);
 		return marcada;
 	}
 

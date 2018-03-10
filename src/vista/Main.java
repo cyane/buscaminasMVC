@@ -12,7 +12,7 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ParaBuscaminasUI frame = new ParaBuscaminasUI();
+					ParaBuscaminasUI frame = new ParaBuscaminasUI("/assets/imagenFondo.jpg");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

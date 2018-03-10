@@ -1,6 +1,7 @@
 package control;
 
 import modelo.Casilla;
+import modelo.Coordenada;
 
 public interface Desvelable {
 	/**
@@ -8,5 +9,5 @@ public interface Desvelable {
 	 * @param casilla
 	 * @return
 	 */
-	boolean desvelarCasilla(Casilla casilla);
+void desvelarCasilla(Coordenada lugar);
 }
