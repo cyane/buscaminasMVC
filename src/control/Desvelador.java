@@ -98,10 +98,9 @@ public class Desvelador implements Desvelable{
 				}
 			}
 		}		
-		System.out.println(contador);
-		System.out.println(contadorMinas);
+
 		if (contador==contadorMinas) {
-			System.out.println("entra");
+
 			return desvelarCasillaAlrededorBandera(lugar);
 		}
 		return false;

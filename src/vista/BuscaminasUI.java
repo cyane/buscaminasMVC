@@ -1,8 +1,6 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -12,7 +10,6 @@ import control.ParaBuscaminasUI;
 import control.Tamanio;
 import utiles.ImageFondo;
 
-import javax.jws.WebParam.Mode;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -20,7 +17,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -30,10 +26,7 @@ import java.awt.Toolkit;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
-import javax.swing.JToggleButton;
-import javax.swing.RootPaneContainer;
 import javax.swing.JComboBox;
-import javax.swing.JCheckBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Component;
@@ -55,7 +48,7 @@ public class BuscaminasUI extends JFrame {
 	protected JRadioButton rdbtnfacil;
 	protected JRadioButton rdbtnmedio;
 	protected JRadioButton rdbtndificil;
-	protected JComboBox comboBox;
+	protected JComboBox<?> comboBox;
 	protected JRadioButton rdbtnExperimental;
 	protected JTextField txtMinas;
 	protected JTextField txtColumnas;
@@ -65,6 +58,7 @@ public class BuscaminasUI extends JFrame {
 	private JPanel panelExperi;
 	private JButton btnNewButton;
 	private JButton button;
+
 	/**
 	 * Create the frame.
 	 */
@@ -72,11 +66,11 @@ public class BuscaminasUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension dimensiones = tk.getScreenSize();
-		setBounds((int)dimensiones.getWidth()/4,(int)dimensiones.getHeight()/4, (int)dimensiones.getWidth()/2, (int)dimensiones.getHeight()/2);
+		setBounds((int) dimensiones.getWidth() / 4, (int) dimensiones.getHeight() / 4, (int) dimensiones.getWidth() / 2,
+				(int) dimensiones.getHeight() / 2);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		CardLayout cardLayout = new CardLayout();
 		contentPane.setLayout(new CardLayout(0, 0));
 
 		panelInicial = new ImageFondo(img);
@@ -89,10 +83,6 @@ public class BuscaminasUI extends JFrame {
 		panelInicial.setLayout(gbl_panelInicial);
 		ButtonGroup grupoDificultad = new ButtonGroup();
 
-
-        
-		
-		
 		panelIngame = new JPanel();
 		contentPane.add(panelIngame, "name_panelIngame");
 		GridBagLayout gbl_panelIngame = new GridBagLayout();
@@ -141,7 +131,7 @@ public class BuscaminasUI extends JFrame {
 		gbc_lblCantidadMinas.gridx = 3;
 		gbc_lblCantidadMinas.gridy = 2;
 		panelIngame.add(lblCantidadMinas, gbc_lblCantidadMinas);
-		
+
 		button = new JButton("REINICIAR");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -160,36 +150,36 @@ public class BuscaminasUI extends JFrame {
 		panelPostGame = new JPanel();
 		contentPane.add(panelPostGame, "name_panelPostGame");
 		GridBagLayout gbl_panelPostGame = new GridBagLayout();
-		gbl_panelPostGame.columnWidths = new int[]{213, 217, 0};
-		gbl_panelPostGame.rowHeights = new int[]{203, 42, 0};
-		gbl_panelPostGame.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_panelPostGame.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		gbl_panelPostGame.columnWidths = new int[] { 213, 217, 0 };
+		gbl_panelPostGame.rowHeights = new int[] { 203, 42, 0 };
+		gbl_panelPostGame.columnWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
+		gbl_panelPostGame.rowWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
 		panelPostGame.setLayout(gbl_panelPostGame);
-				
-				btnNewButton = new JButton("REINICIAR");
-				btnNewButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						setVisible(false);
-						ParaBuscaminasUI frame = new ParaBuscaminasUI(img);
-						frame.setVisible(true);
-					}
-				});
-				
-						btnGana = new JButton("");
-						btnGana.setName("btnGana");
-						GridBagConstraints gbc_btnGana = new GridBagConstraints();
-						gbc_btnGana.gridwidth = 2;
-						gbc_btnGana.insets = new Insets(0, 0, 5, 5);
-						gbc_btnGana.fill = GridBagConstraints.BOTH;
-						gbc_btnGana.gridx = 0;
-						gbc_btnGana.gridy = 0;
-						panelPostGame.add(btnGana, gbc_btnGana);
-				GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-				gbc_btnNewButton.gridwidth = 2;
-				gbc_btnNewButton.fill = GridBagConstraints.BOTH;
-				gbc_btnNewButton.gridx = 0;
-				gbc_btnNewButton.gridy = 1;
-				panelPostGame.add(btnNewButton, gbc_btnNewButton);
+
+		btnNewButton = new JButton("REINICIAR");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+				ParaBuscaminasUI frame = new ParaBuscaminasUI(img);
+				frame.setVisible(true);
+			}
+		});
+
+		btnGana = new JButton("");
+		btnGana.setName("btnGana");
+		GridBagConstraints gbc_btnGana = new GridBagConstraints();
+		gbc_btnGana.gridwidth = 2;
+		gbc_btnGana.insets = new Insets(0, 0, 5, 5);
+		gbc_btnGana.fill = GridBagConstraints.BOTH;
+		gbc_btnGana.gridx = 0;
+		gbc_btnGana.gridy = 0;
+		panelPostGame.add(btnGana, gbc_btnGana);
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.gridwidth = 2;
+		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
+		gbc_btnNewButton.gridx = 0;
+		gbc_btnNewButton.gridy = 1;
+		panelPostGame.add(btnNewButton, gbc_btnNewButton);
 
 		btnIniciarGame = new JButton("Start Game");
 		btnIniciarGame.setContentAreaFilled(false);
@@ -215,7 +205,7 @@ public class BuscaminasUI extends JFrame {
 		rdbtndificil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				setDensidad(densidad.dificil);
+				setDensidad(Densidad.dificil);
 				panelInicial.setBackground(Color.yellow);
 				btnIniciarGame.setVisible(true);
 				panelExperi.setVisible(false);
@@ -230,7 +220,7 @@ public class BuscaminasUI extends JFrame {
 		rdbtnmedio.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				setDensidad(densidad.medio);
+				setDensidad(Densidad.medio);
 				panelInicial.setBackground(Color.green);
 				btnIniciarGame.setVisible(true);
 				panelExperi.setVisible(false);
@@ -245,7 +235,7 @@ public class BuscaminasUI extends JFrame {
 		rdbtnfacil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				setDensidad(densidad.facil);
+				setDensidad(Densidad.facil);
 				panelInicial.setBackground(Color.BLACK);
 				btnIniciarGame.setVisible(true);
 				panelExperi.setVisible(false);
@@ -271,7 +261,7 @@ public class BuscaminasUI extends JFrame {
 		gbc_rdbtndificil.gridy = 2;
 		panelInicial.add(rdbtndificil, gbc_rdbtndificil);
 		grupoDificultad.add(rdbtndificil);
-		
+
 		rdbtnExperimental = new JRadioButton("experimental");
 		rdbtnExperimental.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
 		rdbtnExperimental.setForeground(Color.ORANGE);
@@ -282,7 +272,7 @@ public class BuscaminasUI extends JFrame {
 				panelExperi.setVisible(true);
 				comboBox.setVisible(false);
 				btnIniciarGame.setVisible(true);
-				
+
 			}
 		});
 		rdbtnExperimental.setOpaque(false);
@@ -293,8 +283,8 @@ public class BuscaminasUI extends JFrame {
 		gbc_rdbtnExperimental.gridy = 3;
 		panelInicial.add(rdbtnExperimental, gbc_rdbtnExperimental);
 		grupoDificultad.add(rdbtnExperimental);
-		
-		comboBox = new JComboBox(Tamanio.values());
+
+		comboBox = new JComboBox<Object>(Tamanio.values());
 		comboBox.setBorder(null);
 		comboBox.setOpaque(false);
 		comboBox.setBackground(Color.LIGHT_GRAY);
@@ -302,9 +292,9 @@ public class BuscaminasUI extends JFrame {
 		comboBox.setFont(new Font("Tahoma", Font.BOLD, 15));
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (comboBox.getSelectedItem()==tamanio.pequenio) {
+				if (comboBox.getSelectedItem() == Tamanio.pequenio) {
 					rdbtndificil.setVisible(false);
-				}else{
+				} else {
 					rdbtndificil.setVisible(true);
 				}
 			}
@@ -322,7 +312,7 @@ public class BuscaminasUI extends JFrame {
 		gbc_btnTest.gridx = 1;
 		gbc_btnTest.gridy = 6;
 		panelInicial.add(btnIniciarGame, gbc_btnTest);
-		
+
 		panelExperi = new JPanel();
 		panelExperi.setVisible(false);
 		panelExperi.setOpaque(false);
@@ -334,12 +324,12 @@ public class BuscaminasUI extends JFrame {
 		gbc_panelExperi.gridy = 3;
 		panelInicial.add(panelExperi, gbc_panelExperi);
 		panelExperi.setLayout(new GridLayout(0, 2, 0, 0));
-		
+
 		JLabel lblMinasPerso = new JLabel("Minas:");
 		lblMinasPerso.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblMinasPerso.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelExperi.add(lblMinasPerso);
-		
+
 		txtMinas = new JTextField();
 		txtMinas.setBorder(null);
 		txtMinas.setOpaque(false);
@@ -348,12 +338,12 @@ public class BuscaminasUI extends JFrame {
 		txtMinas.setHorizontalAlignment(SwingConstants.CENTER);
 		panelExperi.add(txtMinas);
 		txtMinas.setColumns(10);
-		
+
 		lblNewLabel_1 = new JLabel("Columnas:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelExperi.add(lblNewLabel_1);
-		
+
 		txtColumnas = new JTextField();
 		txtColumnas.setBorder(null);
 		txtColumnas.setOpaque(false);
@@ -361,12 +351,12 @@ public class BuscaminasUI extends JFrame {
 		txtColumnas.setHorizontalAlignment(SwingConstants.CENTER);
 		panelExperi.add(txtColumnas);
 		txtColumnas.setColumns(10);
-		
+
 		lblFilas = new JLabel("Filas:");
 		lblFilas.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblFilas.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelExperi.add(lblFilas);
-		
+
 		txtFilas = new JTextField();
 		txtFilas.setBorder(null);
 		txtFilas.setOpaque(false);
@@ -379,9 +369,10 @@ public class BuscaminasUI extends JFrame {
 	public void getCurrentPanel(String name) {
 		((CardLayout) contentPane.getLayout()).show(contentPane, name);
 	}
+
 	public void setDensidad(Densidad densidad) {
-		assert densidad!=null;
+		assert densidad != null;
 		this.densidad = densidad;
 	}
- 
+
 }

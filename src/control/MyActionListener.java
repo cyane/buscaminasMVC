@@ -5,51 +5,41 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-import modelo.Casilla;
 import modelo.Coordenada;
-import modelo.Tablero;
-import utiles.Utiles;
 
 public class MyActionListener implements ActionListener, MouseListener {
 	private ParaBuscaminasUI ParaBuscaminasUI;
-	private Marcador marcador;
 	private Coordenada lugar;
 	private boolean estado = false;
-	private ImageIcon icono= new ImageIcon(getClass().getResource("/assets/icono.jpg"));
-	private ImageIcon bosque= new ImageIcon(getClass().getResource("/assets/bosque.jpg"));
-	public MyActionListener(ParaBuscaminasUI ParaBuscaminasUI, Marcador marcador) {
+
+	public MyActionListener(ParaBuscaminasUI ParaBuscaminasUI) {
 		super();
 		this.ParaBuscaminasUI = ParaBuscaminasUI;
-		this.marcador=marcador;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		boolean perdida=false;
+		boolean perdida = false;
 		JButton pulsado = (JButton) e.getSource();
 		String temp[] = pulsado.getName().split("-");
-		lugar=new Coordenada(Integer.valueOf(temp[0]), Integer.valueOf(temp[1]));
-		System.out.println(lugar.getPosX()+" "+lugar.getPosY() );
+		lugar = new Coordenada(Integer.valueOf(temp[0]), Integer.valueOf(temp[1]));
 		switch (e.getButton()) {
 		case 1:
-			if(ParaBuscaminasUI.isMina(lugar)&&!ParaBuscaminasUI.isMarcada(lugar)){
+			if (ParaBuscaminasUI.isMina(lugar) && !ParaBuscaminasUI.isMarcada(lugar)) {
 				perdida = true;
-			}else if(ParaBuscaminasUI.isMarcada(lugar)){
+			} else if (ParaBuscaminasUI.isMarcada(lugar)) {
 				// si esta marcada no hace nada
-				System.out.println("casilla marcada");
-			}else if(!ParaBuscaminasUI.isVelada(lugar)){
-				//comprobar alrededor y destapar si eso
-				perdida=ParaBuscaminasUI.desvelador.comprobarMarcadas(lugar);
-			}else{
+			} else if (!ParaBuscaminasUI.isVelada(lugar)) {
+				// comprobar alrededor y destapar si eso
+				perdida = ParaBuscaminasUI.desvelador.comprobarMarcadas(lugar);
+			} else {
 				ParaBuscaminasUI.desvelador.desvelarCasilla(lugar);
 			}
-		
+
 			break;
 		case 2:
-			System.out.println("soy el boton central");
 			break;
 		case 3:
 			if (estado) {
@@ -60,12 +50,9 @@ public class MyActionListener implements ActionListener, MouseListener {
 			estado = !estado;
 			break;
 		default:
-			System.out.println("soy el boton no lo tengo claro");
 			break;
 		}
-		if (ParaBuscaminasUI.actualizar(perdida)) {
-			System.out.println("gana");
-		}
+		ParaBuscaminasUI.actualizar(perdida);
 	}
 
 	@Override
@@ -74,7 +61,7 @@ public class MyActionListener implements ActionListener, MouseListener {
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		
+
 	}
 
 	@Override
@@ -93,7 +80,7 @@ public class MyActionListener implements ActionListener, MouseListener {
 			ParaBuscaminasUI.crearTablero();
 		} else if (((JButton) e.getSource()).getName() == "btnGana") {
 			ParaBuscaminasUI.ponerTableroGame();
-		} 
+		}
 
 	}
 }

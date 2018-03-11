@@ -1,7 +1,5 @@
 package control;
 
-import javax.print.attribute.standard.NumberOfDocuments;
-
 import modelo.Tablero;
 
 public class Iniciador implements Iniciable {
@@ -10,8 +8,7 @@ public class Iniciador implements Iniciable {
 	private byte filas, columnas;
 	private Tablero tablero;
 	private Tamanio tamanio;
-	
-	
+
 	public byte getFilas() {
 		return filas;
 	}
@@ -25,7 +22,7 @@ public class Iniciador implements Iniciable {
 	}
 
 	public void setMinas(byte minas) {
-		assert minas>0;
+		assert minas > 0;
 		this.minas = minas;
 	}
 
@@ -34,27 +31,26 @@ public class Iniciador implements Iniciable {
 	}
 
 	public void setDensidad(Densidad densidad) {
-		assert densidad!=null;
+		assert densidad != null;
 		this.densidad = densidad;
 	}
+
 	public void setTamanio(Tamanio tamanio) {
-		assert tamanio!=null;
+		assert tamanio != null;
 		this.tamanio = tamanio;
 	}
-
-
 
 	@Override
 	public void establecerDimensionTablero() {
 		switch (densidad) {
 		case facil:
-			this.minas=(byte) densidad.facil.getValor();
+			this.minas = (byte) Densidad.facil.getValor();
 			break;
 		case medio:
-			this.minas=(byte) densidad.medio.getValor();
+			this.minas = (byte) Densidad.medio.getValor();
 			break;
 		case dificil:
-			this.minas=(byte) densidad.dificil.getValor();
+			this.minas = (byte) Densidad.dificil.getValor();
 			break;
 		default:
 			break;
@@ -62,19 +58,19 @@ public class Iniciador implements Iniciable {
 		int[] temp;
 		switch (tamanio) {
 		case pequenio:
-			temp= tamanio.pequenio.getValor();
-			this.filas=(byte) temp[0];
-			this.columnas=(byte) temp[1];
+			temp = Tamanio.pequenio.getValor();
+			this.filas = (byte) temp[0];
+			this.columnas = (byte) temp[1];
 			break;
 		case mediano:
-			temp= tamanio.mediano.getValor();
-			this.filas=(byte) temp[0];
-			this.columnas=(byte) temp[1];
+			temp = Tamanio.mediano.getValor();
+			this.filas = (byte) temp[0];
+			this.columnas = (byte) temp[1];
 			break;
 		case grande:
-			temp= tamanio.grande.getValor();
-			this.filas=(byte) temp[0];
-			this.columnas=(byte) temp[1];
+			temp = Tamanio.grande.getValor();
+			this.filas = (byte) temp[0];
+			this.columnas = (byte) temp[1];
 			break;
 		default:
 			break;
@@ -91,32 +87,32 @@ public class Iniciador implements Iniciable {
 	public void colocarMinas() {
 
 		assert this.tablero != null && minas > 0 : "fallo al definir el tablero y/o el numero de minas";
-		int contador=this.minas;
-		do{
-		int[] posicion=sortearMina();
-		if (!this.tablero.comprobarMinada(posicion)) {
-			boolean retorno = this.tablero.colocarMina(posicion[0], posicion[1]);
-			contador--;
-		}else{
-		}
-		}while(contador>0);
+		int contador = this.minas;
+		do {
+			int[] posicion = sortearMina();
+			if (!this.tablero.comprobarMinada(posicion)) {
+				this.tablero.colocarMina(posicion[0], posicion[1]);
+				contador--;
+			} else {
+			}
+		} while (contador > 0);
 		// no se debe acceder directamente a las propiedades de otra clase
 		// this.tablero.casillas[x][y].mina=true;
 	}
 
 	private int[] sortearMina() {
-		int[] posicion={random(0,filas),random(0,columnas)};
+		int[] posicion = { random(0, filas), random(0, columnas) };
 		return posicion;
 	}
 
 	private int random(int menor, int mayor) {
-		return (int)Math.floor(Math.random()*(menor-(mayor))+(mayor));
+		return (int) Math.floor(Math.random() * (menor - (mayor)) + (mayor));
 	}
 
-	public Tablero iniciarJuego( Densidad densidad, Tamanio tamanio,boolean perso,int[] valores) {
+	public Tablero iniciarJuego(Densidad densidad, Tamanio tamanio, boolean perso, int[] valores) {
 		if (perso) {
 			establecerValores(valores);
-		}else{
+		} else {
 			setDensidad(densidad);
 			setTamanio(tamanio);
 			establecerDimensionTablero();
@@ -129,17 +125,17 @@ public class Iniciador implements Iniciable {
 	}
 
 	private void establecerValores(int[] valores) {
-		if (valores[1]<2||valores[2]<2) {
-			valores[1]=2;
-			valores[2]=2;
+		if (valores[1] < 2 || valores[2] < 2) {
+			valores[1] = 2;
+			valores[2] = 2;
 		}
-		if (valores[0]>=valores[1]*valores[2]) {
-			valores[0]=(valores[1]*valores[2])/3;
+		if (valores[0] >= valores[1] * valores[2]) {
+			valores[0] = (valores[1] * valores[2]) / 3;
 		}
 
-		this.minas=(byte) valores[0];
-		this.filas=(byte) valores[1];
-		this.columnas=(byte) valores[2];
+		this.minas = (byte) valores[0];
+		this.filas = (byte) valores[1];
+		this.columnas = (byte) valores[2];
 	}
 
 }
