@@ -83,7 +83,7 @@ public class BuscaminasUI extends JFrame {
 		panelInicial.setLayout(gbl_panelInicial);
 		ButtonGroup grupoDificultad = new ButtonGroup();
 
-		panelIngame = new JPanel();
+		panelIngame = new ImageFondo("/assets/fondo.jpg");
 		contentPane.add(panelIngame, "name_panelIngame");
 		GridBagLayout gbl_panelIngame = new GridBagLayout();
 		gbl_panelIngame.columnWidths = new int[] { 0, 344, 344, 344, 344, 0, 0 };
